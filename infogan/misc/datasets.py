@@ -85,3 +85,33 @@ class MnistDataset(object):
 
     def inverse_transform(self, data):
         return data
+
+
+class TissueDataset(object):
+    def __init__(self, train, test):
+        self.train = train
+        # make sure that each type of digits have exactly 10 samples
+        sup_images = []
+        sup_labels = []
+        rnd_state = np.random.get_state()
+        np.random.seed(0)
+        for cat in range(10):
+            ids = np.where(self.train.labels == cat)[0]
+            np.random.shuffle(ids)
+            sup_images.extend(self.train.images[ids[:10]])
+            sup_labels.extend(self.train.labels[ids[:10]])
+        np.random.set_state(rnd_state)
+        self.supervised_train = Dataset(
+            np.asarray(sup_images),
+            np.asarray(sup_labels),
+        )
+        self.test = test
+        self.validation = test
+        self.image_dim = 28 * 28 * 3
+        self.image_shape = (28, 28, 3)
+
+    def transform(self, data):
+        return data
+
+    def inverse_transform(self, data):
+        return data
