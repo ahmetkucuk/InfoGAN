@@ -86,4 +86,4 @@ def get_data(dataset_dir, size):
 	training_dataset = Dataset(images=train_images, labels=train_labels)
 	testing_dataset = Dataset(images=test_images, labels=test_labes)
 
-	return TissueDataset(train=training_dataset, test=testing_dataset)
+	return TissueDataset(train=training_dataset, test=testing_dataset, data_dim=size)

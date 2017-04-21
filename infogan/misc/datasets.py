@@ -88,7 +88,7 @@ class MnistDataset(object):
 
 
 class TissueDataset(object):
-    def __init__(self, train, test):
+    def __init__(self, train, test, data_dim):
         self.train = train
         # make sure that each type of digits have exactly 10 samples
         sup_images = []
@@ -107,8 +107,8 @@ class TissueDataset(object):
         )
         self.test = test
         self.validation = test
-        self.image_dim = 28 * 28 * 3
-        self.image_shape = (28, 28, 3)
+        self.image_dim = data_dim * data_dim * 3
+        self.image_shape = (data_dim, data_dim, 3)
 
     def transform(self, data):
         return data
